@@ -73,7 +73,7 @@ void ServerManager::stopAP() {
 
 // ------------------------------------------------------------------------
 
-void ServerManager::startSTA(bool initMqtt) {
+void ServerManager::startSTA() {
     WiFi.mode(WIFI_STA); 
 
     delay(100);

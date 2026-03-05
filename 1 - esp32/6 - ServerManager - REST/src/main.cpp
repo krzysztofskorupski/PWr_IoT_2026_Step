@@ -3,17 +3,15 @@
 #include <string>
 
 #include "DiodeManager.h"
-#include "diode/DiodeManagerRGB.h"
 #include "ServerManager.h"
 #include "SensorManager.h"
 
 DiodeManager diode;
-DiodeManagerRGB diodeRGB;
 ServerManager server;
 SensorManager sensor;
 
 void setup() {
-  diodeRGB.setup();           // diode.setup();
+  diode.setup();
   sensor.setup();
 
   Serial.begin(115200);
@@ -32,7 +30,7 @@ void setup() {
 void loop() {
 
   Serial.println("Configuration mode...");
-  diodeRGB.setBlue();         // diode.setOn();
+  diode.setOn();
 
   server.startAP();
 
@@ -43,11 +41,11 @@ void loop() {
   server.stopAP();
 
   Serial.println("Production mode...");
-  diodeRGB.setGreen();        // diode.setOff();
+  diode.setOff();
 
-  server.startSTA(true);
+  server.startSTA();
 
   while (true) {
-    server.loopMqttSTA();
+    server.loopRestSTA();
   }
 }

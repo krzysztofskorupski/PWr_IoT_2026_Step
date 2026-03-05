@@ -16,7 +16,7 @@ class ServerManager {
     bool loopAP();
     void stopAP();
 
-    void startSTA(bool initMqtt);
+    void startSTA();
     void loopRestSTA();
 
 
