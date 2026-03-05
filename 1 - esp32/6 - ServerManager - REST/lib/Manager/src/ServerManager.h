@@ -1,0 +1,43 @@
+#pragma once
+
+#include <Arduino.h>
+#include <WebServer.h>
+#include <string>
+#include <functional>
+#include <WiFiClient.h>
+
+class ServerManager {
+    public:
+    explicit ServerManager();
+
+    void setDataProvider(std::function<std::string()> callback);
+    
+    void startAP();
+    bool loopAP();
+    void stopAP();
+
+    void startSTA(bool initMqtt);
+    void loopRestSTA();
+
+
+private:
+    std::string parseDataToJson(const std::string& data);
+    void sendPostRequest(const std::string& body);
+    
+    WebServer _server;
+
+    std::function<std::string()> _data_provider;
+
+    std::string _url_rest = "http://10.216.158.124:3000/api/v1/iot/data";
+
+    std::string _device = "d_123";
+    std::string _sensor = "random";
+
+    std::string _ap_ssid = "esp32";
+    std::string _ap_password = "supersecret";
+
+    std::string _sta_ssid = "";
+    std::string _sta_password = "";
+
+    unsigned long _delay_ms = 5000;
+};
