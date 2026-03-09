@@ -28,7 +28,7 @@ private:
 
     std::function<std::string()> _data_provider;
 
-    std::string _url_rest = "http://10.216.158.124:3000/api/v1/iot/data";
+    std::string _url_rest = "http://10.43.236.124:3000/api/v1/iot/data";
 
     std::string _device = "d_123";
     std::string _sensor = "random";

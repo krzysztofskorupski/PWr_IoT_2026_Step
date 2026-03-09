@@ -10,6 +10,8 @@ void setup() {
   diode.setup();
   sensor.setup();
 
+  Serial.begin(115200);
+
   while (!Serial) { 
     delay(10); 
   }
@@ -18,7 +20,7 @@ void setup() {
 }
 
 void loop() {
-  Serial.print(sensor.measure().c_str());
+  Serial.println(sensor.measure().c_str());
   diode.setOn();
   delay(500);
   diode.setOff();
