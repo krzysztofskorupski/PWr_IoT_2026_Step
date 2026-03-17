@@ -12,7 +12,6 @@ SensorManager sensor;
 
 void setup() {
   diode.setup();
-  sensor.setup();
 
   Serial.begin(115200);
 
@@ -24,11 +23,11 @@ void setup() {
 }
 
 void loop() {
-
-  Serial.println("Configuration mode...");
   diode.setOn();
 
   server.startAP();
+  
+  Serial.println(server.getIP());
 
   while (server.loopAP()) {
     yield();

@@ -8,7 +8,6 @@ SensorManager sensor;
 
 void setup() {
   diode.setup();
-  sensor.setup();
 
   Serial.begin(115200);
 
