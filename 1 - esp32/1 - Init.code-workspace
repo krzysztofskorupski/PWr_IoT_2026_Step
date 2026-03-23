@@ -1,17 +1,35 @@
 {
 	"folders": [
 		{
+			"name": "1 - Init",
 			"path": "1 - Init"
 		},
 		{
+			"name": "2 - DiodeManager",
 			"path": "2 - DiodeManager"
 		},
 		{
+			"name": "3 - SensorManager",
 			"path": "3 - SensorManager"
 		},
 		{
+			"name": "4 - ServerManager - AP",
 			"path": "4 - ServerManager - AP"
+		},
+		{
+			"name": "5 - ServerManager - STA",
+			"path": "5 - ServerManager - STA"
+		},
+		{
+			"name": "6 - ServerManager - REST",
+			"path": "6 - ServerManager - REST"
+		},
+		{
+			"name": "Webpage",
+			"path": "Webpage"
 		}
 	],
-	"settings": {}
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "Webpage"
+	}
 }

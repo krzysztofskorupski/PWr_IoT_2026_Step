@@ -4,7 +4,7 @@
 
 class DiodeManager {
   public:
-      explicit DiodeManager();
+      DiodeManager() = default;
 
       void setup();
 
@@ -12,5 +12,5 @@ class DiodeManager {
       void setOff();
       
   private:
-    static constexpr uint8_t DIODE_PIN = 2;
+      static constexpr uint8_t DIODE_PIN = 2;
 };

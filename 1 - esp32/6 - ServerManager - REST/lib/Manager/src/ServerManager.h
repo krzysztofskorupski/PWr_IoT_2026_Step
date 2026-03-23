@@ -8,36 +8,47 @@
 
 class ServerManager {
     public:
-    explicit ServerManager();
+        ServerManager() = default;
+   
+        void startAP();
+        void stopAP();
 
-    void setDataProvider(std::function<std::string()> callback);
-    
-    void startAP();
-    bool loopAP();
-    void stopAP();
+        bool loopAP();
 
-    void startSTA();
-    void loopRestSTA();
+        IPAddress getIP() const;
 
+        //-------------------------------------------------------------------------------------------------
 
-private:
-    std::string parseDataToJson(const std::string& data);
-    void sendPostRequest(const std::string& body);
-    
-    WebServer _server;
+        void startSTA();
+        void loopRestSTA();
 
-    std::function<std::string()> _data_provider;
+        //-------------------------------------------------------------------------------------------------
 
-    std::string _url_rest = "http://10.43.236.124:3000/api/v1/iot/data";
+        void setDataProvider(std::function<std::string()> callback);
 
-    std::string _device = "d_123";
-    std::string _sensor = "random";
+    private:
+        WebServer _server;
 
-    std::string _ap_ssid = "esp32";
-    std::string _ap_password = "supersecret";
+        const char* _ap_ssid = "esp32";
+        const char* _ap_password = "supersecret";
 
-    std::string _sta_ssid = "";
-    std::string _sta_password = "";
+        //-------------------------------------------------------------------------------------------------
+        
+        std::string _sta_ssid = "";
+        std::string _sta_password = "";
+        
+        unsigned long _delay_ms = 5000;
+        
+        //-------------------------------------------------------------------------------------------------
 
-    unsigned long _delay_ms = 5000;
+        std::function<std::string()> _data_provider;
+
+        std::string parseDataToJson(const std::string& data);
+        void sendPostRequest(const std::string& body);
+
+        const char* _url_rest = "http://10.43.236.124:3000/api/v1/iot/data";
+
+        std::string _device = "d_123";
+        std::string _sensor = "random";
+
 };
