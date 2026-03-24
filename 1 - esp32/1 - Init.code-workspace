@@ -27,9 +27,12 @@
 		{
 			"name": "Webpage",
 			"path": "Webpage"
+<<<<<<< HEAD
 		},
 		{
 			"path": "Backend"
+=======
+>>>>>>> e08be29af141b22b734e96f32a4cc784074b8fd2
 		}
 	],
 	"settings": {
