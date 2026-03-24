@@ -3,9 +3,8 @@
 #include <string>
 
 class SensorManager {
-public:
-    explicit SensorManager();
+    public:
+        SensorManager() = default;
 
-    void setup();
-    std::string measure() const;
+        std::string measure() const;
 };

@@ -2,6 +2,7 @@
 
 void DiodeManager::setup() {
   pinMode(DIODE_PIN, OUTPUT);
+  setOff();
 }
 
 void DiodeManager::setOn() {

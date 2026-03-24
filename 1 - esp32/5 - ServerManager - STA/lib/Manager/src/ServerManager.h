@@ -7,23 +7,30 @@
 
 class ServerManager {
     public:
-    explicit ServerManager();
+        ServerManager() = default;
+   
+        void startAP();
+        void stopAP();
 
-    void startAP();
-    bool loopAP();
-    void stopAP();
+        bool loopAP();
 
-    void startSTA();
-    void loopRestSTA();
+        IPAddress getIP() const;
 
-private:
-    WebServer _server;
+        //-------------------------------------------------------------------------------------------------
 
-    std::string _ap_ssid = "esp32";
-    std::string _ap_password = "supersecret";
+        void startSTA();
+        void loopRestSTA();
 
-    std::string _sta_ssid = "";
-    std::string _sta_password = "";
+    private:
+        WebServer _server;
 
-    unsigned long _delay_ms = 5000;
+        const char* _ap_ssid = "esp32";
+        const char* _ap_password = "supersecret";
+
+        //-------------------------------------------------------------------------------------------------
+
+        std::string _sta_ssid = "";
+        std::string _sta_password = "";
+
+        unsigned long _delay_ms = 5000;
 };
