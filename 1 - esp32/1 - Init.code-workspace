@@ -17,22 +17,28 @@
 			"path": "4 - ServerManager - AP"
 		},
 		{
-			"name": "5 - ServerManager - STA",
-			"path": "5 - ServerManager - STA"
+			"name": "5 - ServerManager - Frontend",
+			"path": "5 - ServerManager - Frontend"
 		},
 		{
-			"name": "6 - ServerManager - REST",
-			"path": "6 - ServerManager - REST"
+			"name": "6 - ServerManager - STA",
+			"path": "6 - ServerManager - STA"
+		},
+		{
+			"name": "7 - ServerManager - Lambda",
+			"path": "7 - ServerManager - Lambda"
+		},
+		{
+			"name": "8 - ServerManager - REST",
+			"path": "8 - ServerManager - REST"
 		},
 		{
 			"name": "Webpage",
 			"path": "Webpage"
-<<<<<<< HEAD
 		},
 		{
+			"name": "Backend",
 			"path": "Backend"
-=======
->>>>>>> e08be29af141b22b734e96f32a4cc784074b8fd2
 		}
 	],
 	"settings": {

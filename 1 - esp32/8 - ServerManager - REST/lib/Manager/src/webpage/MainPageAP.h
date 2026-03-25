@@ -1,0 +1,20 @@
+#pragma once
+
+#include <Arduino.h>
+
+const char CONFIG_PAGE[] PROGMEM = R"raw(
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body>
+    <h1>Device Setup</h1>
+    <form action="/save" method="POST">
+      <input type="text" name="ssid" placeholder="WiFi SSID" required />
+      <input type="password" name="password" placeholder="Password" required />
+      <button type="submit">Connect to network</button>
+    </form>
+  </body>
+)raw";

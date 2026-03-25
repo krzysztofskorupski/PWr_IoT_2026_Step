@@ -14,6 +14,9 @@ void ServerManager::startAP() {
         _sta_ssid = _server.arg("ssid").c_str();
         _sta_password = _server.arg("password").c_str();
 
+        Serial.println(_sta_ssid.c_str());
+        Serial.println(_sta_password.c_str());
+
         _server.send(200, "text/plain", "Credentials received.");
     });
 
@@ -37,8 +40,6 @@ IPAddress ServerManager::getIP() const {
     return WiFi.softAPIP();
 }
 
-//-------------------------------------------------------------------------------------------------
-
 void ServerManager::startSTA() {
     WiFi.mode(WIFI_STA); 
 
@@ -52,7 +53,7 @@ void ServerManager::startSTA() {
     }
 
     if (WiFi.status() != WL_CONNECTED) {
-        Serial.print("Connection failed (STA). Rebooting...\n");
+        Serial.println("Connection failed (STA). Rebooting...");
 
         delay(5000);
         
@@ -61,44 +62,15 @@ void ServerManager::startSTA() {
 }
 
 void ServerManager::loopRestSTA() {
-    delay(_delay_ms);
+    delay(1000);
 
-    if (_data_provider) {
-        std::string jsonBody = parseDataToJson(_data_provider());
-        sendPostRequest(jsonBody);
-    } else {
-        Serial.print("No Data Provider set. Rebooting...\n");
+    std::string data = _data_provider();
 
-        delay(5000);
-        
-        ESP.restart();
-    }
+    Serial.println(data.c_str());
 }
 
 //-------------------------------------------------------------------------------------------------
 
 void ServerManager::setDataProvider(std::function<std::string()> callback) {
     _data_provider = callback;
-}
-
-std::string ServerManager::parseDataToJson(const std::string& payload) {
-    return "{\"device\": \"" + _device + "\", \"sensor\": \"" + _sensor + "\", \"payload\": \"" + payload + "\"}";
-}
-
-void ServerManager::sendPostRequest(const std::string& body) {
-    HTTPClient http;
-
-    http.begin(_url_rest);
-    http.addHeader("Content-Type", "application/json");
-
-    int httpResponseCode = http.POST(body.c_str());
-
-    if (httpResponseCode > 0) {
-        std::string response = http.getString().c_str();
-        Serial.printf("HTTP Response code: %d\n", httpResponseCode);
-    } else {
-        Serial.printf("Error code: %d\n", httpResponseCode);
-    }
- 
-    http.end();
 }

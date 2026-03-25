@@ -14,6 +14,9 @@ void ServerManager::startAP() {
         _sta_ssid = _server.arg("ssid").c_str();
         _sta_password = _server.arg("password").c_str();
 
+        Serial.println(_sta_ssid.c_str());
+        Serial.println(_sta_password.c_str());
+
         _server.send(200, "text/plain", "Credentials received.");
     });
 
@@ -37,8 +40,6 @@ IPAddress ServerManager::getIP() const {
     return WiFi.softAPIP();
 }
 
-// ------------------------------------------------------------------------
-
 void ServerManager::startSTA() {
     WiFi.mode(WIFI_STA); 
 
@@ -52,7 +53,7 @@ void ServerManager::startSTA() {
     }
 
     if (WiFi.status() != WL_CONNECTED) {
-        Serial.print("Connection failed (STA). Rebooting...\n");
+        Serial.println("Connection failed (STA). Rebooting...");
 
         delay(5000);
         
@@ -61,7 +62,37 @@ void ServerManager::startSTA() {
 }
 
 void ServerManager::loopRestSTA() {
-    delay(_delay_ms);
+    delay(1000);
 
-    Serial.println("Measurement");
+    std::string data = _data_provider();
+
+    Serial.println(data.c_str());
+    sendPostRequest(parseDataToJson(data));
+}
+
+//-------------------------------------------------------------------------------------------------
+
+void ServerManager::setDataProvider(std::function<std::string()> callback) {
+    _data_provider = callback;
+}
+
+std::string ServerManager::parseDataToJson(const std::string& payload) {
+    return "{\"device\": \"d_123\", \"sensor\": \"random\", \"payload\": \"" + payload + "\"}";
+}
+
+void ServerManager::sendPostRequest(const std::string& body) {
+    HTTPClient http;
+
+    http.begin(_url_rest);
+    http.addHeader("Content-Type", "application/json");
+
+    int httpResponseCode = http.POST(body.c_str());
+
+    Serial.println(httpResponseCode);
+
+    if (httpResponseCode == 200) {
+        Serial.println(http.getString());
+    }
+ 
+    http.end();
 }

@@ -16,11 +16,6 @@ class ServerManager {
 
         IPAddress getIP() const;
 
-        //-------------------------------------------------------------------------------------------------
-
-        void startSTA();
-        void loopRestSTA();
-
     private:
         WebServer _server;
 
@@ -31,6 +26,4 @@ class ServerManager {
 
         std::string _sta_ssid = "";
         std::string _sta_password = "";
-
-        unsigned long _delay_ms = 5000;
 };
