@@ -20,7 +20,7 @@ class ServerManager {
         void startSTA();
         void loopRestSTA();
 
-        void setDataProvider(std::function<std::string()> callback);
+        void setDataProvider(std::function<std::string()> measure);
 
     private:
         WebServer _server;
@@ -28,10 +28,10 @@ class ServerManager {
         const char* _ap_ssid = "esp32";
         const char* _ap_password = "supersecret";
         
-        std::string _sta_ssid = "";
-        std::string _sta_password = "";
+        std::string _sta_ssid = "IoT";
+        std::string _sta_password = "supersecret";
         
-        std::function<std::string()> _data_provider;
+        std::function<std::string()> _measure;
 
         //-------------------------------------------------------------------------------------------------
 

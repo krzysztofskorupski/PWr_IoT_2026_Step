@@ -22,7 +22,7 @@ class ServerManager {
 
         //-------------------------------------------------------------------------------------------------
 
-        void setDataProvider(std::function<std::string()> callback);
+        void setDataProvider(std::function<std::string()> measure);
 
     private:
         WebServer _server;
@@ -35,5 +35,5 @@ class ServerManager {
         
         //-------------------------------------------------------------------------------------------------
 
-        std::function<std::string()> _data_provider;
+        std::function<std::string()> _measure;
 };

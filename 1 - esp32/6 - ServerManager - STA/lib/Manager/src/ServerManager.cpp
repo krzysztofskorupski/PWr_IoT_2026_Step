@@ -14,8 +14,7 @@ void ServerManager::startAP() {
         _sta_ssid = _server.arg("ssid").c_str();
         _sta_password = _server.arg("password").c_str();
 
-        Serial.println(_sta_ssid.c_str());
-        Serial.println(_sta_password.c_str());
+        Serial.printf("%s | %s\n", _sta_ssid.c_str(), _sta_password.c_str());
 
         _server.send(200, "text/plain", "Credentials received.");
     });
@@ -32,7 +31,7 @@ void ServerManager::stopAP() {
 bool ServerManager::loopAP() {
     _server.handleClient();
 
-    return _sta_ssid.empty() || _sta_password.empty();
+    return _sta_ssid.empty();
 }
 
 IPAddress ServerManager::getIP() const {
@@ -45,14 +44,9 @@ IPAddress ServerManager::getIP() const {
 void ServerManager::startSTA() {
     WiFi.mode(WIFI_STA); 
 
-    delay(100);
-
     WiFi.begin(_sta_ssid.c_str(), _sta_password.c_str());
 
-    int retry = 0;
-    while (WiFi.status() != WL_CONNECTED && retry++ < 20) {
-        delay(500);
-    }
+    delay(10000);
 
     if (WiFi.status() != WL_CONNECTED) {
         Serial.println("Connection failed (STA). Rebooting...");
