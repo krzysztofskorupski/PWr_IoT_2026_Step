@@ -1,0 +1,20 @@
+{
+	"folders": [
+		{
+			"path": "1 - Init"
+		},
+		{
+			"path": "2 - Controller"
+		},
+		{
+			"path": "3 - Database"
+		},
+		{
+			"path": "4 - Final"
+		},
+		{
+			"path": "Utils"
+		}
+	],
+	"settings": {}
+}

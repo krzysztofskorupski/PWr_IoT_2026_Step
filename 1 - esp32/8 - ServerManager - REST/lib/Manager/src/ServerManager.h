@@ -38,5 +38,5 @@ class ServerManager {
         std::string parseDataToJson(const std::string& data);
         void sendPostRequest(const std::string& body);
 
-        const char* _url_rest = "http://10.237.211.124:3000/api/v1/iot/data";
+        const char* _url_rest = "http://10.67.246.124:3000/api/v1/iot/data";
 };
