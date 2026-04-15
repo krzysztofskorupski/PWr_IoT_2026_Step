@@ -32,7 +32,7 @@ router.post("/data", async (req, res) => {
   try {
     await database.addMeasurementData(req.body);
 
-    res.status(201).json({ status: "success" });
+    res.status(200).json({ status: "success" });
   } catch (error) {
     sendError(res, error);
   }
