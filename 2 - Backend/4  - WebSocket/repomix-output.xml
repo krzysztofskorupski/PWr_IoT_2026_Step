@@ -1,0 +1,181 @@
+This file is a merged representation of the entire codebase, combined into a single document by Repomix.
+
+<file_summary>
+This section contains a summary of this file.
+
+<purpose>
+This file contains a packed representation of the entire repository's contents.
+It is designed to be easily consumable by AI systems for analysis, code review,
+or other automated processes.
+</purpose>
+
+<file_format>
+The content is organized as follows:
+1. This summary section
+2. Repository information
+3. Directory structure
+4. Repository files (if enabled)
+5. Multiple file entries, each consisting of:
+  - File path as an attribute
+  - Full contents of the file
+</file_format>
+
+<usage_guidelines>
+- This file should be treated as read-only. Any changes should be made to the
+  original repository files, not this packed version.
+- When processing this file, use the file path to distinguish
+  between different files in the repository.
+- Be aware that this file may contain sensitive information. Handle it with
+  the same level of security as you would the original repository.
+</usage_guidelines>
+
+<notes>
+- Some files may have been excluded based on .gitignore rules and Repomix's configuration
+- Binary files are not included in this packed representation. Please refer to the Repository Structure section for a complete list of file paths, including binary files
+- Files matching patterns in .gitignore are excluded
+- Files matching default ignore patterns are excluded
+- Files are sorted by Git change count (files with more changes are at the bottom)
+</notes>
+
+</file_summary>
+
+<directory_structure>
+.gitignore
+package.json
+src/app.js
+src/controller/iot.rest.js
+src/controller/iot.socket.js
+src/database/mock.connector.js
+src/server.js
+</directory_structure>
+
+<files>
+This section contains the contents of the repository's files.
+
+<file path=".gitignore">
+**/node_modules
+# .env
+</file>
+
+<file path="package.json">
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.6",
+    "express": "^5.2.1",
+    "socket.io": "^4.8.3"
+  }
+}
+</file>
+
+<file path="src/app.js">
+import cors from "cors";
+import express from "express";
+import iotRoutes from "./controller/iot.rest.js";
+
+const app = express();
+
+app.use(cors());
+app.use(express.json());
+
+app.use("/api/v1/iot", iotRoutes);
+
+app.get("/api/v1/health", (req, res) => {
+  res.json({ status: "online" });
+});
+
+export default app;
+</file>
+
+<file path="src/controller/iot.rest.js">
+import { Router } from "express";
+import * as database from "../database/mock.connector.js";
+import * as socket from "./iot.socket.js"
+
+const router = Router();
+
+router.get("/data", async (req, res) => {
+  const data = await database.getMeasurementData();
+
+  res.status(200).json({ status: "success", data });
+});
+
+router.post("/data", async (req, res) => {
+  const data = await database.addMeasurementData(req.body);
+
+  socket.broadcastMeasurementData(data);
+  
+  res.status(200).json({ status: "success" });
+});
+
+export default router;
+</file>
+
+<file path="src/controller/iot.socket.js">
+import { Server } from "socket.io";
+
+let io;
+
+export const initWebSocket = async (httpServer) => {
+  io = new Server(httpServer, {
+    cors: {
+      origin: "*",
+      methods: ["GET", "POST"],
+    },
+  });
+
+  io.on("connection", (socket) => {
+    console.log(`Dashboard connected (client: ${socket.id})`);
+
+    socket.on("disconnect", () => {
+      console.log(`Dashboard disconnected: (client ${socket.id})`);
+    });
+  });
+};
+
+export const broadcastMeasurementData = (data) => {
+  if (io) {
+    io.emit("measurement", data);
+  }
+};
+</file>
+
+<file path="src/database/mock.connector.js">
+let _db_mock = [];
+
+export const getMeasurementData = async () => {
+
+  return _db_mock;
+};
+
+export const addMeasurementData = async (payload) => {
+  const data = { received_at: new Date(), ...payload };
+
+  _db_mock.push(data);
+
+  console.log(data);
+
+  return data;
+};
+</file>
+
+<file path="src/server.js">
+import http from "http";
+import app from "./app.js";
+import { initWebSocket } from "./controller/iot.socket.js";
+
+const server = http.createServer(app);
+
+server.listen(3000, "0.0.0.0", async () => {
+  initWebSocket(server);
+  console.log(`Backend running on: http://0.0.0.0:3000`);
+});
+</file>
+
+</files>

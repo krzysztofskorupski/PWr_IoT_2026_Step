@@ -13,7 +13,7 @@ router.post("/data", async (req, res) => {
   console.log({ ...req.query });
   console.log({ ...req.body });
 
-  res.status(201).json({ status: "success" });
+  res.status(200).json({ status: "success" });
 });
 
 export default router;

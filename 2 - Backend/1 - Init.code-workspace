@@ -1,18 +1,23 @@
 {
 	"folders": [
 		{
+			"name": "1 - Init",
 			"path": "1 - Init"
 		},
 		{
+			"name": "2 - Controller",
 			"path": "2 - Controller"
 		},
 		{
+			"name": "3 - Database",
 			"path": "3 - Database"
 		},
 		{
-			"path": "4 - Final"
+			"name": "4  - WebSocket",
+			"path": "4  - WebSocket"
 		},
 		{
+			"name": "Utils",
 			"path": "Utils"
 		}
 	],
