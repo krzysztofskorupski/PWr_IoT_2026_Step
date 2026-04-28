@@ -9,18 +9,8 @@ export const initWebSocket = async (httpServer) => {
       methods: ["GET", "POST"],
     },
   });
-
-  io.on("connection", (socket) => {
-    console.log(`Dashboard connected (client: ${socket.id})`);
-
-    socket.on("disconnect", () => {
-      console.log(`Dashboard disconnected: (client ${socket.id})`);
-    });
-  });
 };
 
 export const broadcastMeasurementData = (data) => {
-  if (io) {
-    io.emit("measurement", data);
-  }
+  io.emit("measurement", data);
 };

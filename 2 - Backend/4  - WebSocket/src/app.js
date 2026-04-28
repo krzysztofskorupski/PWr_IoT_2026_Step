@@ -9,8 +9,8 @@ app.use(express.json());
 
 app.use("/api/v1/iot", iotRoutes);
 
-app.get("/api/v1/health", (req, res) => {
-  res.json({ status: "online" });
+app.get("/api/v1/health", async (req, res) => {
+  res.status(200).json({ status: "online" });
 });
 
 export default app;

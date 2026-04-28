@@ -3,7 +3,7 @@ import io from "socket.io-client";
 
 const SOCKET_URL = "http://localhost:3000";
 
-const Dashboard = () => {
+const App = () => {
   const [connected, setConnected] = useState(false);
   const [measurements, setMeasurements] = useState([]);
 
@@ -24,7 +24,7 @@ const Dashboard = () => {
     <div>
       <h2>Measurements - Status: {connected ? "LIVE" : "DISCONNECTED"}</h2>
       <ul>
-        {measurements.map((item, id) => (
+        {measurements.map((item) => (
           <li key={item.received_at}>
             {new Date(item.received_at).toLocaleTimeString()} device: {item.device} sensor: {item.sensor} payload: {item.payload}
           </li>
@@ -34,4 +34,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default App;
