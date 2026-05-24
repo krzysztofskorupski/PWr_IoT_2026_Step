@@ -33,12 +33,12 @@
 			"path": "8 - ServerManager - REST"
 		},
 		{
-			"name": "Webpage",
-			"path": "Webpage"
+			"name": "9x - ServerManager - MQTT",
+			"path": "9x - ServerManager - MQTT"
 		},
 		{
-			"name": "Backend",
-			"path": "Backend"
+			"name": "Webpage",
+			"path": "Webpage"
 		}
 	],
 	"settings": {

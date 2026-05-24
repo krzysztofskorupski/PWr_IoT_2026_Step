@@ -21,6 +21,10 @@
 			"path": "5x - Database - MySQL"
 		},
 		{
+			"name": "6x - MQTT",
+			"path": "6x - MQTT"
+		},
+		{
 			"name": "Utils",
 			"path": "Utils"
 		}
